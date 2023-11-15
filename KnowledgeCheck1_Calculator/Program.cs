@@ -7,7 +7,7 @@ namespace KnowledgeCheck1_Calculator
 		static void Main(string[] args)
 		{
 
-			Console.WriteLine("Hello. Press 1 for addition, 2 for subtraction, 3 for multiplication, and 4 for division");
+			Console.WriteLine("Hello. Press 1 for addition, 2 for subtraction, 3 for multiplication, and 4 for division.");
 
 			var input = Console.ReadLine();
 			var calculator = new Calculator();
@@ -16,12 +16,18 @@ namespace KnowledgeCheck1_Calculator
 			{
 				case "1":
 					{
-						Console.WriteLine("Enter 2 integers to add");
-						(int number1, int number2) = GetNumbers();
-						Console.Write($"{number1} + {number2} = ");
-						Console.Write(calculator.Add(number1, number2));
+						try
+						{
+							(int number1, int number2) = GetNumbers("Enter 2 integers to add.");
+							Console.Write($"{number1} + {number2} = ");
+							Console.Write(calculator.Add(number1, number2));
+						}
+						catch
+						{
+							Console.WriteLine("Addition failed.");
+						}
 					}
-					
+
 					//var addNumber1 = Console.ReadLine();
 					//var addNumber2 = Console.ReadLine();
 
@@ -38,12 +44,18 @@ namespace KnowledgeCheck1_Calculator
 
 				case "2":
 					{
-						Console.WriteLine("Enter 2 integers to subtract");
-						(int number1, int number2) = GetNumbers();
-						Console.Write($"{number1} - {number2} = ");
-						Console.Write(calculator.Subtract(number1, number2));
+						try
+						{
+							(int number1, int number2) = GetNumbers("Enter 2 integers to subtract.");
+							Console.Write($"{number1} - {number2} = ");
+							Console.Write(calculator.Subtract(number1, number2));
+						}
+						catch
+						{
+							Console.WriteLine("Subtraction failed.");
+						}
 					}
-					
+
 
 					//var subtractNumber1 = Console.ReadLine();
 					//var subtractNumber2 = Console.ReadLine();
@@ -62,10 +74,16 @@ namespace KnowledgeCheck1_Calculator
 				case "3":
 					// Add code here
 					{
-						Console.WriteLine("Enter 2 integers to multiply");
-						(int number1, int number2) = GetNumbers();
-						Console.Write($"{number1} * {number2} = ");
-						Console.Write(calculator.Multiply(number1, number2));
+						try
+						{
+							(int number1, int number2) = GetNumbers("Enter 2 integers to multiply.");
+							Console.Write($"{number1} * {number2} = ");
+							Console.Write(calculator.Multiply(number1, number2));
+						}
+						catch
+						{
+							Console.WriteLine("Multiplication failed.");
+						}
 					}
 
 					//Console.WriteLine("Enter 2 integers to multiply");
@@ -84,10 +102,16 @@ namespace KnowledgeCheck1_Calculator
 
 				case "4":
 					{
-						Console.WriteLine("Enter 2 integers to divide");
-						(int number1, int number2) = GetNumbers();
-						Console.Write($"{number1} / {number2} = ");
-						Console.Write(calculator.Divide(number1, number2));
+						try
+						{
+							(int number1, int number2) = GetNumbers("Enter 2 integers to divide.");
+							Console.Write($"{number1} / {number2} = ");
+							Console.Write(calculator.Divide(number1, number2));
+						}
+						catch
+						{
+							Console.WriteLine("Division failed.");
+						}
 					}
 
 
@@ -107,15 +131,18 @@ namespace KnowledgeCheck1_Calculator
 					break;
 
 				default:
-					Console.WriteLine("Unknown input");
+					Console.WriteLine("Unknown input.");
 					break;
 			}
 		}
 
 
-		static (int, int) GetNumbers()
+		static (int, int) GetNumbers(string message)
 		{
+			Console.WriteLine(message);
+			Console.WriteLine("Enter the first number: ");
 			var firsttext = Console.ReadLine();
+			Console.WriteLine("Enter the second number: ");
 			var secondtext = Console.ReadLine();
 
 			if (int.TryParse(firsttext, out int first) && int.TryParse(secondtext, out int second))
@@ -124,8 +151,8 @@ namespace KnowledgeCheck1_Calculator
 			}
 			else
 			{
-				Console.WriteLine("One or more of the numbers is not an int");
-				return (0, 0);
+				Console.WriteLine("One or more of the numbers is not an int.");
+				throw new Exception();
 			}
 		}
 	}
