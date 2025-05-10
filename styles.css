@@ -1,0 +1,53 @@
+.row
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.column
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.grid
+{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+#answer
+{
+	width: 200px;
+	background-color: rgb(215, 250, 248);
+	padding: 8px;
+	font-size: x-large;
+	text-align: right;
+}
+.button
+{
+	height: 50px;
+	width: 50px;
+	margin: 2px;
+	border-radius: 8px;
+	border: 1px dashed darkgray;
+}
+.button:hover
+{
+	background-color: gray;
+}
+
+
+.numbers
+{
+	background-color: rgb(236, 236, 236);
+	border: 2px solid black;
+	border-radius: 8px;
+}
+
+.calculator
+{
+	border: 2px solid black;
+	border-radius: 8px;
+	padding: 8px;
+}
