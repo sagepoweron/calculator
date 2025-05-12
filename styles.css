@@ -16,6 +16,10 @@
 	grid-template-columns: repeat(3, 1fr);
 }
 
+#operator
+{
+	text-align: right;
+}
 #answer
 {
 	width: 200px;
@@ -23,6 +27,14 @@
 	padding: 8px;
 	font-size: x-large;
 	text-align: right;
+}
+#equals
+{
+	background-color: lightblue;
+}
+#equals:hover
+{
+	background-color: gray;
 }
 .button
 {
@@ -47,6 +59,7 @@
 
 .calculator
 {
+	background-color: rgb(209, 209, 209);
 	border: 2px solid black;
 	border-radius: 8px;
 	padding: 8px;
