@@ -36,41 +36,40 @@ equalsButton.addEventListener("click", (event) =>
 addButton.addEventListener("click", (event) =>
 {
     calculate();
-    let x = Number(answerText.value);
-    operator = add(x);
-    operatorText.innerText = x + " +";
+    let a = Number(answerText.value);
+    operator = add(a);
+    operatorText.innerText = a + " +";
     answerText.value = "0";
 });
 subtractButton.addEventListener("click", (event) =>
 {
     calculate();
-    let x = Number(answerText.value);
-    operator = subtract(x);
-    operatorText.innerText = x + " -";
+    let a = Number(answerText.value);
+    operator = subtract(a);
+    operatorText.innerText = a + " -";
     answerText.value = "0";
 });
 multiplyButton.addEventListener("click", (event) =>
 {
     calculate();
-    let x = Number(answerText.value);
-    operator = multiply(x);
-    operatorText.innerText = x + " *";
+    let a = Number(answerText.value);
+    operator = multiply(a);
+    operatorText.innerText = a + " *";
     answerText.value = "0";
 });
 divideButton.addEventListener("click", (event) =>
 {
     calculate();
-    let x = Number(answerText.value);
-    operator = divide(x);
-    operatorText.innerText = x + " /";
+    let a = Number(answerText.value);
+    operator = divide(a);
+    operatorText.innerText = a + " /";
     answerText.value = "0";
 });
 
-
-const add = x => y => Number( (x + y).toFixed(5) );
-const subtract = x => y => Number( (x - y).toFixed(5) );
-const multiply = x => y => Number( (x * y).toFixed(5) );
-const divide = x => y => Number( (x / y).toFixed(5) );
+const add = a => b => Number( (a + b).toFixed(5) );
+const subtract = a => b => Number( (a - b).toFixed(5) );
+const multiply = a => b => Number( (a * b).toFixed(5) );
+const divide = a => b => Number( (a / b).toFixed(5) );
 let operator = null;
 
 
@@ -132,19 +131,11 @@ function calculate()
         return;
     }
     
-    let y = Number(answerText.value);
-    answerText.value = operator(y);
+    let b = Number(answerText.value);
+    answerText.value = operator(b);
     operator = null;
     operatorText.innerText = "-";
 }
-/*function toggleSign2()
-{
-    answerText.value = -Number(answerText.value);
-    fixAnswer();
-}*/
-
-
-
 
 function toggleSign()
 {
@@ -164,98 +155,8 @@ function toggleSign()
 
     fixAnswer();
 }
-
-
-
-
-//operator = new AddOperator(answerText.value);
-//operator = new SubtractOperator(answerText.value);
-//operator = new MultiplyOperator(answerText.value);
-//operator = new DivideOperator(answerText.value);
-
-//operatorText.innerText = operator.GetText();
-/*class Operator
+/*function toggleSign2()//removes the decimal
 {
-    Calculate()
-    {
-        return "null";
-    }
-
-    GetText()
-    {
-        return "null";
-    }
-}
-
-class AddOperator extends Operator
-{
-    constructor(number1)
-    {
-        super();
-        this.number1 = number1;
-    }
-
-    Calculate(number2)
-    {
-        return Number(this.number1) + Number(number2);
-    }
-
-    GetText()
-    {
-        return this.number1 + " +";
-    }
-}
-class SubtractOperator extends Operator
-{
-    constructor(number1)
-    {
-        super();
-        this.number1 = number1;
-    }
-
-    Calculate(number2)
-    {
-        return Number(this.number1) - Number(number2);
-    }
-
-    GetText()
-    {
-        return this.number1 + " -";
-    }
-}
-class MultiplyOperator extends Operator
-{
-    constructor(number1)
-    {
-        super();
-        this.number1 = number1;
-    }
-
-    Calculate(number2)
-    {
-        return Number(this.number1) * Number(number2);
-    }
-
-    GetText()
-    {
-        return this.number1 + " *";
-    }
-}
-class DivideOperator extends Operator
-{
-    constructor(number1)
-    {
-        super();
-        this.number1 = number1;
-    }
-
-    Calculate(number2)
-    {
-        return Number(this.number1) / Number(number2);
-    }
-
-    GetText()
-    {
-        return this.number1 + " /";
-    }
+    answerText.value = -Number(answerText.value);
+    fixAnswer();
 }*/
