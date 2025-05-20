@@ -41,6 +41,7 @@ body
 	padding: 8px;
 	font-size: x-large;
 	text-align: right;
+	border: 1px solid black;
 }
 #equals
 {
@@ -76,3 +77,13 @@ button:hover
 {
 	font-size: x-large;
 }
+
+.highlight
+{
+	background-color: yellow;
+}
+
+/*#clear
+{
+	flex-grow: 1;
+}*/

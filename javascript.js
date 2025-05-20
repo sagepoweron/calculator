@@ -1,126 +1,176 @@
+
 const answerText = document.getElementById("answer");
 const operatorText = document.getElementById("operator");
-const clearButton = document.getElementById("clear");
-const backspaceButton = document.getElementById("backspace");
-const signButton = document.getElementById("sign");
-const addButton = document.getElementById("add");
-const subtractButton = document.getElementById("subtract");
-const multiplyButton = document.getElementById("multiply");
-const divideButton = document.getElementById("divide");
-const equalsButton = document.getElementById("equals");
-const numberButtons = document.getElementsByClassName("number");
 
-for (let i = 0; i < numberButtons.length; i++)
+document.addEventListener("click", (event) =>
 {
-    numberButtons[i].addEventListener("click", (event) =>
+    validate();
+
+    if (event.target.id === "equals") calculate();
+    if (event.target.id === "clear") clear();
+    if (event.target.id === "backspace") backspace();
+    if (event.target.id === "sign") toggleSign();
+    if (event.target.id === "add") add();
+    if (event.target.id === "subtract") subtract();
+    if (event.target.id === "multiply") multiply();
+    if (event.target.id === "divide") divide();
+    if (event.target.id === "sqrt") squareroot();
+    if (event.target.id === "square") square();
+    if (event.target.matches(".number")) appendText(event.target.innerText);
+
+    validate();
+
+    //console.log(event.target.getAttribute("data-value"));
+    //const dataValue = event.target.getAttribute("data-value");
+    /*switch (event.target.id)
     {
-        appendValue(numberButtons[i].innerText);
-    });
-}
-clearButton.addEventListener("click", (event) =>
-{
-    clear();
-});
-backspaceButton.addEventListener("click", (event) =>
-{
-    backspace();
-});
-signButton.addEventListener("click", (event) =>
-{
-    toggleSign();
-});
-equalsButton.addEventListener("click", (event) =>
-{
-    calculate();
-});
-addButton.addEventListener("click", (event) =>
-{
-    calculate();
-    let a = Number(answerText.value);
-    operator = add(a);
-    operatorText.innerText = a + " +";
-    answerText.value = "0";
-});
-subtractButton.addEventListener("click", (event) =>
-{
-    calculate();
-    let a = Number(answerText.value);
-    operator = subtract(a);
-    operatorText.innerText = a + " -";
-    answerText.value = "0";
-});
-multiplyButton.addEventListener("click", (event) =>
-{
-    calculate();
-    let a = Number(answerText.value);
-    operator = multiply(a);
-    operatorText.innerText = a + " *";
-    answerText.value = "0";
-});
-divideButton.addEventListener("click", (event) =>
-{
-    calculate();
-    let a = Number(answerText.value);
-    operator = divide(a);
-    operatorText.innerText = a + " /";
-    answerText.value = "0";
+        case "equals":
+            calculate();
+            break;
+        case "sign":
+            toggleSign();
+            break;
+        case "backspace":
+            backspace();
+            break;
+    
+        default:
+            break;
+    }*/
+    //console.log(event.target.id)
+    //event.target.classList.toggle("highlight");
+    /*if (event.target.matches("#equals"))
+    {
+        calculate();
+    }*/
 });
 
-const add = a => b => Number( (a + b).toFixed(5) );
-const subtract = a => b => Number( (a - b).toFixed(5) );
-const multiply = a => b => Number( (a * b).toFixed(5) );
-const divide = a => b => Number( (a / b).toFixed(5) );
+document.addEventListener("keydown", (event) =>
+{
+    validate();
+
+    if (event.key >= 0 && event.key <= 9) appendText(event.key);
+    if (event.key === '.') appendText(event.key);
+    if (event.key === 'Enter' || event.key === '=') calculate();
+    if (event.key === 'Backspace') backspace();
+    if (event.key === 'Escape') clear();
+    if (event.key === "+") add();
+    if (event.key === "-") subtract();
+    if (event.key === "*") multiply();
+    if (event.key === "/") divide();
+});
+
+const addOperator = a => b => a + b;
+const subtractOperator = a => b => a - b;
+const multiplyOperator = a => b => a * b;
+const divideOperator = a => b => a / b;
+const squarerootOperator = a => Math.sqrt(a);
+const squareOperator = a => a * a;
 let operator = null;
 
-
-function appendValue(string)
+function add()
 {
-    if (string === ".")
+    calculate();
+    let a = Number(answerText.innerText);
+    operator = addOperator(a);
+    operatorText.innerText = a + " +";
+    answerText.innerText = "0";
+}
+function subtract()
+{
+    calculate();
+    let a = Number(answerText.innerText);
+    operator = subtractOperator(a);
+    operatorText.innerText = a + " -";
+    answerText.innerText = "0";
+}
+function multiply()
+{
+    calculate();
+    let a = Number(answerText.innerText);
+    operator = multiplyOperator(a);
+    operatorText.innerText = a + " *";
+    answerText.innerText = "0";
+}
+function divide()
+{
+    calculate();
+    const a = Number(answerText.innerText);
+    operator = divideOperator(a);
+    operatorText.innerText = a + " /";
+    answerText.innerText = "0";
+}
+function squareroot()
+{
+    calculate();
+    operator = squarerootOperator;
+    calculate();
+}
+function square()
+{
+    calculate();
+    operator = squareOperator;
+    calculate();
+}
+
+
+
+function appendText(text)
+{
+    if (text === ".")
     {
-        if (answerText.value === '0' || !answerText.value.includes("."))
-        {
-            answerText.value += string;
-        }
+        if (answerText.innerText.includes(".")) return;
+        
+        answerText.innerText += text;
     }
     else
     {
-        if (answerText.value === "0")
+        if (answerText.innerText === "0")
         {
-            answerText.value = string;
+            answerText.innerText = text;
         }
         else
         {
-            answerText.value += string;
+            answerText.innerText += text;
         }
     }
-
-    fixAnswer();
 }
 
-
-function isNumeric(string)
+function validate()
 {
-  return !isNaN(string) && !isNaN(parseFloat(string))
-}
-
-function fixAnswer()
-{
-    if (!isNumeric(answerText.value))
+    if (isNaN(answerText.innerText) || answerText.innerText === "")
     {
-        answerText.value = "0";
+        answerText.innerText = "0";
     }
+
+    /*if (Number(answerText.innerText) > 9999999999 || Number(answerText.innerText < -9999999999))
+    {
+        answerText.innerText = "out of range";
+        return;
+    }*/
+
+    if (answerText.innerText.length > 16)
+    {
+        answerText.innerText = "out of range";
+        return;
+    }
+
+    const numbers = answerText.innerText.split(".");
+    if (numbers.length > 1)
+    {
+        numbers[1] = numbers[1].substring(0, 5);
+    }
+    answerText.innerText = numbers.join(".");
 }
 
 function backspace()
 {
-    answerText.value = answerText.value.slice(0, -1);
-
-    fixAnswer();
+    answerText.innerText = answerText.innerText.slice(0, -1);
 }
 
 function clear()
 {
-    answerText.value = "0";
+    answerText.innerText = "0";
     operator = null;
     operatorText.innerText = "-";
 }
@@ -130,30 +180,32 @@ function calculate()
     {
         return;
     }
+
+    let b = Number(answerText.innerText);
     
-    let b = Number(answerText.value);
-    answerText.value = operator(b);
+    //answerText.innerText = operator(b);
+    answerText.innerText = Number(operator(b).toFixed(5));
+    //fixes adding 0.03 to a number
+    
     operator = null;
     operatorText.innerText = "-";
 }
 
 function toggleSign()
 {
-    if (answerText.value === "0")
+    if (answerText.innerText === "0")
     {
         return;
     }
 
-    if (answerText.value.startsWith('-'))
+    if (answerText.innerText.startsWith('-'))
     {
-        answerText.value = answerText.value.substring(1);
+        answerText.innerText = answerText.innerText.substring(1);
     }
     else
     {
-        answerText.value = "-" + answerText.value;
+        answerText.innerText = "-" + answerText.innerText;
     }
-
-    fixAnswer();
 }
 /*function toggleSign2()//removes the decimal
 {
